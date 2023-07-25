@@ -66,14 +66,15 @@ export const validatePassword = async (
 
 export const findOneUser = async (options: any): Promise<User> => {
   if (!options.username && !options.id) {
-    throw new Error("Please provide email or id ");
+    throw new Error("Please provide username or id ");
   }
   const where = {
     [Op.or]: [] as any,
+    status: true
   };
 
   if (options.username) {
-    where[Op.or].push({ username: options.username });
+    where[Op.or].push({ username: options.username, });
   }
   if (options.id) {
     where[Op.or].push({ id: options.id });
