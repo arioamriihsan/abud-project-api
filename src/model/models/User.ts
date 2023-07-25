@@ -47,6 +47,9 @@ User.init(
     date_of_birth: {
       type: DataTypes.DATE,
     },
+    background_color: {
+      type: DataTypes.STRING,
+    },
     status: {
       type: DataTypes.TINYINT,
       defaultValue: 1,
