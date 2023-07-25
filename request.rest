@@ -1,0 +1,2 @@
+### hit 'Send Request' to sync DB 
+PATCH http://localhost:5000/api/sync
