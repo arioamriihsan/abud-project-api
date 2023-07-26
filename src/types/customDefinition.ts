@@ -15,9 +15,4 @@ export type ControllerFunction = (
   next: NextFunction
 ) => void;
 
-export type Language = 'id' | 'en';
-
-export interface LocaleMessage {
-  id: string;
-  en: string;
-}
+export type LanguageType = "id" | "en";
