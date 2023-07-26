@@ -1,4 +1,15 @@
-import Joi from "joi";
+import Joi, { LanguageMessages } from "joi";
+
+export const translate = (lang: string): LanguageMessages => {
+  const eng = lang === "en";
+
+  return {
+    "string.empty": eng ? "{#key} is required" : "{#key} harus diisi",
+    "string.min": eng
+      ? "{#key} must have contain at least {#limit} characters"
+      : "{#key} harus mengandung minimal {#limit} karakter",
+  };
+};
 
 export const loginSchema = Joi.object({
   username: Joi.string().required(),
