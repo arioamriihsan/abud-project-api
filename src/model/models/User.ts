@@ -62,6 +62,9 @@ User.init(
       type: DataTypes.TINYINT,
       defaultValue: 2,
     },
+    refresh_token: {
+      type: DataTypes.TEXT,
+    }
   },
   {
     sequelize: sequelizeConnection,

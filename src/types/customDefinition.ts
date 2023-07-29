@@ -16,3 +16,8 @@ export type ControllerFunction = (
 ) => void;
 
 export type LanguageType = "id" | "en";
+
+export interface LocaleMessage {
+  id: string;
+  en: string;
+}

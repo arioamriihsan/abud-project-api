@@ -1,2 +1,14 @@
-### hit 'Send Request' to sync DB 
+### SYNC DB
 PATCH http://localhost:5000/api/sync
+
+### LOGIN
+POST http://localhost:5000/api/v1/auth/login
+Content-Type: application/json
+
+{
+    "username": "@ario.ihsan",
+    "password": "superadmin123"
+}
+
+### REFRESH TOKEN
+GET http://localhost:5000/api/v1/auth/token

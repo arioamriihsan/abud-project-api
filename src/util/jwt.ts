@@ -1,15 +1,17 @@
+import jwt from "jsonwebtoken";
 import { jwtConfig } from "../config/config";
 
-import jwt from "jsonwebtoken";
-
 export const sign = (
-  payload: any,
-  options = { expiresIn: jwtConfig.expiry + "h" }
+  key: "accToken" | "refToken",
+  payload: any
 ): string => {
-  return jwt.sign(payload, jwtConfig.secret, options);
+  if (key === "accToken") {
+    return jwt.sign(payload, jwtConfig.secret, { expiresIn: jwtConfig.expiry + "h" });
+  }
+  return jwt.sign(payload, jwtConfig.refreshTokenSecret, { expiresIn: jwtConfig.refreshTokenExpiry + "h" });
 };
 
-export const verify = (token: string) => {
+export const verify = (token: string): any => {
   try {
     const decoded = jwt.verify(token, jwtConfig.secret);
     return { valid: true, expired: false, decoded };
