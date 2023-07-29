@@ -1,7 +1,8 @@
-import { encryptSync } from "../util/encrypt";
-import User from "../model/models/User";
 import { Op } from "sequelize";
 import { isEqual } from "lodash";
+import { encryptSync } from "../util/encrypt";
+import User from "../model/models/User";
+import { omitData } from "../controllers/auth";
 
 export const createUser = async (payload: any): Promise<User> => {
   payload.password = encryptSync(payload.password);
@@ -82,7 +83,7 @@ export const findOneUser = async (options: any): Promise<User> => {
 
   const user = await User.findOne({
     where,
-    attributes: { exclude: ["password"] },
+    attributes: { exclude: omitData },
   });
   return user;
 };

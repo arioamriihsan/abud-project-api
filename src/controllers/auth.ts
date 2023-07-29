@@ -1,10 +1,9 @@
 import { NextFunction, Response } from "express";
 import jwt from "jsonwebtoken";
-import { omit } from "lodash";
+import { isEqual, omit } from "lodash";
 import { sign } from "../util/jwt";
 import { generateOTP, verifyOTP } from "../util/otp";
 import { sendOTP } from "../helpers/mailHelper";
-import { ApiError } from "../util/ApiError";
 import { customRequest } from "customDefinition";
 import User from "../model/models/User";
 import {
@@ -13,8 +12,12 @@ import {
   validatePassword,
 } from "../services/userService";
 import { jwtConfig } from "../config/config";
+import { encryptSync } from "../util/encrypt";
+import { ApiError } from "../util/ApiError";
+import { ApiSuccess } from "../util/ApiSuccess";
 
-const omitData = ["password", "refresh_token", "created_at"];
+
+export const omitData = ["password", "refresh_token", "created_at"];
 
 export const loginUser = async (
   req: customRequest,
@@ -133,6 +136,65 @@ export const refreshToken = async (
         error: false,
       });
     });
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const changePassword = async (
+  req: customRequest,
+  res: Response,
+  next: NextFunction
+): Promise<unknown> => {
+  try {
+    const { username, current_pass, new_pass, conf_pass } = req.body;
+    const language = req.language;
+
+    if (!isEqual(new_pass, conf_pass)) {
+      const err = new ApiError(400, language, {
+        id: "Konfirmasi Kata Sandi tidak cocok",
+        en: "Confirm Password does not match"
+      });
+      return res.status(400).json(err);
+    }
+    const user = await findOneUser({ username });
+    if (!user) {
+      const err = new ApiError(400, language, {
+        id: "Nama Akun tidak ditemukan",
+        en: "Username not found",
+      });
+      return res.status(400).json(err);
+    }
+
+    const hasValidPassword = await validatePassword(
+      username,
+      current_pass,
+      user.has_changed_password
+    );
+    if (!hasValidPassword) {
+      const err = new ApiError(400, language, {
+        id: "Kata Sandi lama salah",
+        en: "Incorrect current password",
+      });
+      return res.status(400).json(err);
+    }
+
+    await User.update(
+      { 
+        password: encryptSync(conf_pass),
+        has_changed_password: true,
+      },
+      {
+        where: {
+          username,
+        },
+      }
+    );
+    const response = new ApiSuccess(200, language, {
+      id: "Kata Sandi berhasil diubah",
+      en: "Password changed"
+    });
+    return res.status(200).json(response);
   } catch (err) {
     next(err);
   }
