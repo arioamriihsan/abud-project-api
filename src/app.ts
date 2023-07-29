@@ -1,5 +1,6 @@
 import express from "express";
 import logger from "morgan";
+import cookieParser from "cookie-parser";
 import cors from "cors";
 import dbInit from "./model/init";
 import { customRequest } from "./types/customDefinition";
@@ -12,17 +13,16 @@ const app = express();
 
 app.use(logger("dev"));
 app.set("port", process.env.PORT || 5000);
-
+app.use(cookieParser());
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
     origin: process.env.REACT_APP_URL,
+    credentials: true,
   })
 );
-
 app.use(deserializeUser);
-
 app.use(languageDetector);
 
 /**

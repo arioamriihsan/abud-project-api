@@ -3,12 +3,16 @@ import { validateRequest } from "../../middleware";
 import {
   forgotPassword,
   loginUser,
+  logoutUser,
+  refreshToken,
   resetPassword,
 } from "../../controllers/auth";
 import { loginSchema } from "../../validation/user";
 const authRouter = Router();
 
 authRouter.post("/login", validateRequest(loginSchema), loginUser);
+authRouter.get("/token", refreshToken);
+authRouter.delete("/logout", logoutUser);
 authRouter.post("/forgot-password", forgotPassword);
 authRouter.post("/reset-password", resetPassword);
 

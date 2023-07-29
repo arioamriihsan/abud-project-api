@@ -1,6 +1,6 @@
+import { Response, NextFunction } from "express";
 import { get } from "lodash";
 import { verify } from "../util/jwt";
-import { Response, NextFunction } from "express";
 import { customRequest } from "../types/customDefinition";
 
 const deserializeUser = async (
@@ -24,7 +24,7 @@ const deserializeUser = async (
   } 
   return res.status(403).json({
     error: true,
-    errorMsg,
+    message: errorMsg,
   });
 };
 
