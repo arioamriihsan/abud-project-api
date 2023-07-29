@@ -10,10 +10,17 @@ export const translate = (lang: string): LanguageMessages => {
       : "{#key} harus mengandung minimal {#limit} karakter",
   };
 };
-
+// "any.only"
 export const loginSchema = Joi.object({
   username: Joi.string().required(),
   password: Joi.string().min(8).required(),
+});
+
+export const changePasswordSchema = Joi.object({
+  username: Joi.string().required(),
+  current_pass: Joi.string().required(),
+  new_pass: Joi.string().min(8).required(),
+  conf_pass: Joi.string().min(8).required(),
 });
 
 export const registerSchema = Joi.object({

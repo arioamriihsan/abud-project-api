@@ -1,17 +1,23 @@
 import { Router } from "express";
 import { validateRequest } from "../../middleware";
 import {
+  changePassword,
   forgotPassword,
   loginUser,
   logoutUser,
   refreshToken,
   resetPassword,
 } from "../../controllers/auth";
-import { loginSchema } from "../../validation/user";
+import { changePasswordSchema, loginSchema } from "../../validation/user";
 const authRouter = Router();
 
 authRouter.post("/login", validateRequest(loginSchema), loginUser);
 authRouter.get("/token", refreshToken);
+authRouter.post(
+  "/change-password",
+  validateRequest(changePasswordSchema),
+  changePassword
+);
 authRouter.delete("/logout", logoutUser);
 authRouter.post("/forgot-password", forgotPassword);
 authRouter.post("/reset-password", resetPassword);

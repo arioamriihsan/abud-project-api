@@ -12,3 +12,15 @@ Content-Type: application/json
 
 ### REFRESH TOKEN
 GET http://localhost:5000/api/v1/auth/token
+
+### CHANGE PASSWORD
+POST http://localhost:5000/api/v1/auth/change-password
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJAYXJpby5paHNhbiIsImZ1bGxfbmFtZSI6IkFyaW8gQW1yaSBJaHNhbiIsImVtYWlsIjoiYXJpb2FtcmlAZ21haWwuY29tIiwicGhvbmUiOm51bGwsImRhdGVfb2ZfYmlydGgiOm51bGwsImJhY2tncm91bmRfY29sb3IiOiIjZjU2YTAwIiwic3RhdHVzIjoxLCJoYXNfY2hhbmdlZF9wYXNzd29yZCI6MCwicm9sZSI6MSwibGFzdF91cGRhdGVkIjoiMjAyMy0wNy0yOVQwNzoyODo1OS4wMDBaIiwiaWF0IjoxNjkwNjE1Nzc5LCJleHAiOjE2OTA2MTkzNzl9.7sks6QKgtRtkOit764d2eICsRLLxDDQXLfF7LtEtEfs
+
+{
+    "username": "@ario.ihsan",
+    "current_pass": "superadmin123",
+    "new_pass": "superadmin1234",
+    "conf_pass": "superadmin1234"
+}
