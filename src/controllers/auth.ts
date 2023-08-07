@@ -73,11 +73,12 @@ export const loginUser = async (
       }
     );
     res.cookie("refreshToken", refreshToken, {
-      httpOnly: true
+      httpOnly: true,
+      secure: true,
+      maxAge: 24 * 60 * 60 * 1000,
     });
 
     return res.status(200).json({
-      data: userData,
       access_token: accessToken,
       error: false,
     });
@@ -207,11 +208,12 @@ export const logoutUser = async (
   try {
     const language = req.language;
     const refreshToken = req.cookies.refreshToken;
+    const { username } = req.body;
     
     if (!refreshToken) {
-      return new ApiError(204, language, {
-        id: "Tidak ada content",
-        en: "No Content,",
+      return new ApiError(401, language, {
+        id: "Sesi kamu telah berakhir, silakan masuk akun kembali",
+        en: "Your session has expired, please login",
       });
     }
 
