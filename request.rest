@@ -24,3 +24,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hb
     "new_pass": "superadmin1234",
     "conf_pass": "superadmin1234"
 }
+
+### GET USER BY USERNAME
+GET http://localhost:5000/api/v1/user
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJAYXJpby5paHNhbiIsImZ1bGxfbmFtZSI6IkFyaW8gQW1yaSBJaHNhbiIsImVtYWlsIjoiYXJpb2FtcmlAZ21haWwuY29tIiwicGhvbmUiOm51bGwsImRhdGVfb2ZfYmlydGgiOm51bGwsImJhY2tncm91bmRfY29sb3IiOiIjZjU2YTAwIiwic3RhdHVzIjoxLCJoYXNfY2hhbmdlZF9wYXNzd29yZCI6MSwicm9sZSI6MSwibGFzdF91cGRhdGVkIjoiMjAyMy0wOC0wNVQwOToyMzo0Mi4wMDBaIiwiaWF0IjoxNjkxMjI3NjAzLCJleHAiOjE2OTEzMTQwMDN9.vca6JNQtvkfK7mT-Wgok7HDZ8EdEUke0BUmRcsFV67E
