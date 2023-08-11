@@ -31,6 +31,5 @@ export const errorHandler = (
     code: statusCode,
     message,
   };
-  console.log("HANCURR");
   res.status(statusCode).json(response);
 };

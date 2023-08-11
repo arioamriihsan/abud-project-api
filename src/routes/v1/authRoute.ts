@@ -18,7 +18,7 @@ authRouter.post(
   validateRequest(changePasswordSchema),
   changePassword
 );
-authRouter.delete("/logout", logoutUser);
+authRouter.post("/logout", logoutUser);
 authRouter.post("/forgot-password", forgotPassword);
 authRouter.post("/reset-password", resetPassword);
 
