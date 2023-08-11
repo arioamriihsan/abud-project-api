@@ -27,6 +27,7 @@ User.init(
     },
     username: {
       type: DataTypes.STRING,
+      unique: true,
       allowNull: false,
     },
     full_name: {
@@ -35,7 +36,6 @@ User.init(
     },
     email: {
       type: DataTypes.STRING,
-      allowNull: false,
       unique: true,
     },
     password: {

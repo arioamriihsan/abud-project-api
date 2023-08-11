@@ -192,7 +192,7 @@ export const changePassword = async (
     );
     const response = new ApiSuccess(200, language, {
       id: "Kata Sandi berhasil diubah",
-      en: "Password changed"
+      en: "Password changed successfully"
     });
     return res.status(200).json(response);
   } catch (err) {
@@ -209,18 +209,17 @@ export const logoutUser = async (
     const language = req.language;
     const refreshToken = req.cookies.refreshToken;
     const { username } = req.body;
+
+    let whereClause = {};
     
-    if (!refreshToken) {
-      return new ApiError(401, language, {
-        id: "Sesi kamu telah berakhir, silakan masuk akun kembali",
-        en: "Your session has expired, please login",
-      });
+    if (refreshToken) {
+      whereClause = { refresh_token: refreshToken };
+    } else {
+      whereClause = { username };
     }
 
     const user = await User.findOne({
-      where: {
-        refresh_token: refreshToken,
-      },
+      where: whereClause,
     });
     if (!user) {
       return new ApiError(204, language, {
